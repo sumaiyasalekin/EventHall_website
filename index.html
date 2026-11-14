@@ -1,0 +1,1835 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f7f5ef" />
+    <title>EventHall — Beautiful occasions. Effortless bookings.</title>
+    <style>
+      :root {
+        --bg: #f7f5ef;
+        --paper: #fffefa;
+        --paper2: #f0eee7;
+        --ink: #242621;
+        --muted: #73766e;
+        --line: #e5e2d8;
+        --accent: #b08b53;
+        --accent2: #806136;
+        --soft: #f3ead9;
+        --shadow: 0 18px 55px #29281e0d;
+        --radius: 20px;
+        --sans:
+          Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        --serif: Georgia, "Times New Roman", serif;
+      }
+      [data-theme="dark"] {
+        --bg: #151714;
+        --paper: #1e211d;
+        --paper2: #292c26;
+        --ink: #f3f0e8;
+        --muted: #a5a79e;
+        --line: #363a32;
+        --accent: #d3b47c;
+        --accent2: #e1c998;
+        --soft: #302b20;
+        --shadow: 0 20px 60px #0003;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 15px/1.6 var(--sans);
+        transition: 0.25s;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .wrap {
+        width: min(1160px, calc(100% - 48px));
+        margin: auto;
+      }
+      .serif {
+        font-family: var(--serif);
+        font-weight: 400;
+        letter-spacing: -0.045em;
+      }
+      .eyebrow {
+        font-size: 0.71rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent2);
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 12px 17px;
+        background: var(--ink);
+        color: var(--bg);
+        font-weight: 750;
+        text-decoration: none;
+        transition: 0.18s;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+      .btn.gold {
+        background: var(--accent);
+        color: #211d15;
+      }
+      .btn.subtle {
+        background: transparent;
+        border-color: var(--line);
+        color: var(--ink);
+      }
+      .btn.small {
+        padding: 9px 13px;
+        font-size: 0.86rem;
+      }
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .brand {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: var(--ink);
+        font-weight: 850;
+        text-decoration: none;
+        letter-spacing: -0.04em;
+      }
+      .brandmark {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        background: var(--ink);
+        color: var(--accent);
+        display: grid;
+        place-items: center;
+      }
+      .navlinks {
+        display: flex;
+        gap: 23px;
+      }
+      .navlinks a {
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-decoration: none;
+      }
+      .navlinks a:hover {
+        color: var(--accent2);
+      }
+      .navright {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .theme {
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--ink);
+        border-radius: 50%;
+      }
+      .hero {
+        padding: 78px 0 62px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.04fr 0.96fr;
+        gap: 58px;
+        align-items: center;
+      }
+      .hero h1 {
+        font-size: clamp(3.4rem, 7.5vw, 6.2rem);
+        line-height: 0.93;
+        margin: 16px 0 23px;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--accent2);
+      }
+      .hero-copy {
+        max-width: 570px;
+        font-size: 1.05rem;
+        color: var(--muted);
+      }
+      .hero-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 26px 0;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+        padding-top: 19px;
+        border-top: 1px solid var(--line);
+        max-width: 530px;
+      }
+      .hero-stats b {
+        display: block;
+        color: var(--accent2);
+        font-size: 1.05rem;
+      }
+      .hero-stats span {
+        font-size: 0.79rem;
+        color: var(--muted);
+      }
+      .hero-art {
+        position: relative;
+        min-height: 430px;
+        border-radius: 27px;
+        overflow: hidden;
+        border: 1px solid #9e8559;
+        background: #cdb27c;
+        box-shadow: var(--shadow);
+      }
+      .hero-art img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero-art:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, #13130d00 42%, #15140db0);
+      }
+      .hero-caption {
+        position: absolute;
+        z-index: 1;
+        bottom: 20px;
+        left: 22px;
+        color: white;
+      }
+      .hero-caption small {
+        display: block;
+        color: #ead9b7;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        font-weight: 800;
+        font-size: 0.68rem;
+      }
+      .hero-caption strong {
+        font: normal 1.7rem var(--serif);
+      }
+      .section {
+        padding: 70px 0;
+      }
+      .section.alt {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: var(--paper2);
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 24px;
+        margin-bottom: 27px;
+      }
+      .section-head h2 {
+        font-size: clamp(2rem, 4vw, 3.35rem);
+        line-height: 1.03;
+        margin: 7px 0;
+      }
+      .section-head p {
+        max-width: 475px;
+        margin: 0;
+        color: var(--muted);
+      }
+      .overview {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .card {
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: var(--radius);
+        padding: 21px;
+        box-shadow: var(--shadow);
+      }
+      .card h3 {
+        margin: 10px 0 5px;
+        font-size: 1.02rem;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .icon {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border-radius: 13px;
+        background: var(--soft);
+        color: var(--accent2);
+        font-weight: 850;
+      }
+      .gallery-tools {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 0 0 15px;
+      }
+      .filter {
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--muted);
+        border-radius: 999px;
+        padding: 9px 14px;
+        font-size: 0.82rem;
+      }
+      .filter.active {
+        background: var(--ink);
+        color: var(--bg);
+        border-color: var(--ink);
+      }
+      .gallery-upload {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding: 17px 18px;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        background: var(--paper);
+        margin-bottom: 16px;
+      }
+      .upload-copy strong {
+        display: block;
+        font-size: 0.92rem;
+      }
+      .upload-copy span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.79rem;
+        margin-top: 2px;
+      }
+      .upload-actions {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .upload-actions select {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 13px;
+        background: var(--bg);
+        color: var(--ink);
+        font-size: 0.82rem;
+      }
+      .upload-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 9px 15px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--bg);
+        font-size: 0.82rem;
+        font-weight: 750;
+        cursor: pointer;
+      }
+      .clear-photos {
+        min-height: 42px;
+        padding: 8px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+      .upload-status {
+        width: 100%;
+        font-size: 0.78rem;
+        color: var(--accent2);
+        margin: 0;
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.85fr 0.85fr;
+        grid-auto-rows: 220px;
+        gap: 13px;
+      }
+      .gallery-tile {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 19px;
+        background: var(--paper);
+        padding: 0;
+        text-align: left;
+        color: #fff;
+        min-height: 180px;
+        isolation: isolate;
+      }
+      .gallery-tile[hidden] {
+        display: none;
+      }
+      .gallery-tile img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        transition: transform 0.45s;
+        object-fit: cover;
+      }
+      .gallery-tile:hover img {
+        transform: scale(1.045);
+      }
+      .gallery-tile:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(180deg, #15150d05 28%, #13140fc9 100%);
+        pointer-events: none;
+      }
+      .tile-copy {
+        position: absolute;
+        left: 17px;
+        right: 17px;
+        bottom: 15px;
+      }
+      .tile-copy small {
+        font-size: 0.65rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #e7d2a5;
+        font-weight: 800;
+      }
+      .tile-copy strong {
+        display: block;
+        font: normal 1.35rem var(--serif);
+        margin-top: 2px;
+      }
+      .photo-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: #151714c9;
+        color: #fff;
+        font-size: 0.65rem;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .gallery-note {
+        margin-top: 13px;
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        background: #090a08ed;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox-inner {
+        width: min(900px, 100%);
+        height: min(680px, 82vh);
+        position: relative;
+        border-radius: 22px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+      .lightbox-inner img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+        background: #111;
+      }
+      .lightbox-inner:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 55%, #10110ed9);
+        pointer-events: none;
+      }
+      .lightbox-info {
+        position: absolute;
+        z-index: 2;
+        bottom: 22px;
+        left: 24px;
+        color: white;
+      }
+      .lightbox-info strong {
+        font: normal 2rem var(--serif);
+      }
+      .lightbox-close {
+        position: absolute;
+        z-index: 3;
+        right: 14px;
+        top: 14px;
+        border: 1px solid #fff7;
+        background: #171914b9;
+        color: white;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+      }
+      .workflow {
+        display: grid;
+        grid-template-columns: 270px 1fr;
+        gap: 20px;
+      }
+      .wf-sidebar {
+        position: sticky;
+        top: 90px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--paper);
+        padding: 9px;
+        box-shadow: var(--shadow);
+      }
+      .wf-tab {
+        display: flex;
+        width: 100%;
+        gap: 12px;
+        align-items: center;
+        text-align: left;
+        padding: 12px 11px;
+        border: 0;
+        border-radius: 13px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .wf-tab.active {
+        background: var(--ink);
+        color: var(--bg);
+      }
+      .wf-panel {
+        display: none;
+      }
+      .wf-panel.active {
+        display: block;
+      }
+      .wf-titlebar {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 17px;
+      }
+      .wf-titlebar h3 {
+        font-size: 2rem;
+        line-height: 1.06;
+        margin: 6px 0;
+      }
+      .wf-titlebar p {
+        max-width: 590px;
+        color: var(--muted);
+        margin: 8px 0;
+      }
+      .steps {
+        display: grid;
+        gap: 10px;
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+      }
+      .step-no {
+        height: 36px;
+        width: 36px;
+        border: 1px solid var(--accent);
+        background: var(--soft);
+        color: var(--accent2);
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        font-size: 0.8rem;
+        font-weight: 850;
+      }
+      .step-body {
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: var(--paper);
+      }
+      .step-body h4 {
+        margin: 0 0 4px;
+        font-size: 0.94rem;
+      }
+      .step-body p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+      .callout {
+        margin-top: 15px;
+        border-left: 3px solid var(--accent);
+        background: var(--soft);
+        border-radius: 0 13px 13px 0;
+        padding: 13px 15px;
+        font-size: 0.86rem;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 10px;
+        color: var(--muted);
+        font-size: 0.75rem;
+        background: var(--paper);
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .faq {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .faq details {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        padding: 15px 17px;
+      }
+      .faq summary {
+        font-weight: 750;
+        cursor: pointer;
+      }
+      .faq p {
+        font-size: 0.88rem;
+        color: var(--muted);
+        margin: 9px 0 0;
+      }
+      .footer {
+        padding: 30px 0;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+      }
+      .source-note {
+        font-size: 0.76rem;
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: #11140fc9;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        z-index: 40;
+      }
+      .modal.open {
+        display: flex;
+      }
+      .modalbox {
+        width: min(610px, 100%);
+        max-height: 92vh;
+        overflow: auto;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 23px;
+        padding: 24px;
+      }
+      .modal-head {
+        display: flex;
+        justify-content: space-between;
+      }
+      .modal-head h2 {
+        font-size: 2.1rem;
+        margin: 5px 0;
+      }
+      .xbtn {
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        font-size: 1.7rem;
+      }
+      .formgrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .field {
+        display: grid;
+        gap: 5px;
+      }
+      .field.full {
+        grid-column: 1/-1;
+      }
+      .field label {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        padding: 11px;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      .checkline {
+        display: flex;
+        gap: 9px;
+        align-items: flex-start;
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+      .status {
+        display: none;
+      }
+      .status.show {
+        display: block;
+      }
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 28px;
+        }
+        .workflow {
+          grid-template-columns: 220px 1fr;
+        }
+        .overview {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 768px) {
+        .wrap,
+        body {
+          width: 100%;
+          max-width: 100%;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .row,
+        .grid,
+        .two-col {
+          flex-direction: column !important;
+          grid-template-columns: 1fr !important;
+        }
+        h1 {
+          font-size: 22pt !important;
+        }
+        .hero h1 {
+          font-size: clamp(3rem, 13vw, 4.8rem) !important;
+        }
+        .nav {
+          height: 62px;
+        }
+        .navlinks {
+          display: none;
+        }
+        .nav-cta {
+          display: none;
+        }
+        .hero {
+          padding: 47px 0 42px;
+        }
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+        .hero-art {
+          min-height: 330px;
+        }
+        .section {
+          padding: 52px 0;
+        }
+        .section-head {
+          display: block;
+        }
+        .section-head p {
+          margin-top: 11px;
+        }
+        .overview {
+          grid-template-columns: 1fr;
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr 1fr;
+          grid-auto-rows: 190px;
+        }
+        .wf-sidebar {
+          position: static;
+          display: flex;
+          overflow: auto;
+          gap: 5px;
+          border-radius: 15px;
+          padding: 7px;
+        }
+        .workflow {
+          grid-template-columns: 1fr;
+        }
+        .wf-tab {
+          min-width: max-content;
+          width: auto;
+          padding: 10px 12px;
+        }
+        .wf-titlebar {
+          display: block;
+        }
+        .wf-titlebar h3 {
+          font-size: 1.75rem;
+        }
+        .faq {
+          grid-template-columns: 1fr;
+        }
+        .card {
+          padding: 16px;
+        }
+        .formgrid {
+          grid-template-columns: 1fr;
+        }
+        .field.full {
+          grid-column: auto;
+        }
+        .footer-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+      @media (max-width: 480px) {
+        .gallery-grid {
+          grid-template-columns: 1fr;
+          grid-auto-rows: 220px;
+        }
+        .hero-actions .btn {
+          flex: 1;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *:before,
+        *:after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap nav">
+        <a class="brand" href="#home"
+          ><span class="brandmark">✦</span>EventHall</a
+        >
+        <nav class="navlinks">
+          <a href="#spaces">Spaces</a><a href="#gallery">Gallery</a
+          ><a href="#journeys">Workflows</a><a href="#faq">FAQs</a>
+        </nav>
+        <div class="navright">
+          <button class="theme" id="theme" aria-label="Toggle dark mode">
+            ☾</button
+          ><a class="btn subtle small" href="#journeys">View workflows</a
+          ><button class="btn gold small" data-open>Check your date</button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="hero" id="home">
+        <div class="wrap hero-grid">
+          <div>
+            <div class="eyebrow">A considered setting for memorable days</div>
+            <h1 class="serif">
+              Beautiful <em>occasions.</em><br />Effortless bookings.
+            </h1>
+            <p class="hero-copy">
+              A polished venue experience from the first look to the final event
+              detail. Discover spaces, explore the gallery, request a date, and
+              keep every next step clear.
+            </p>
+            <div class="hero-actions">
+              <button class="btn gold" data-open>Check your date ↗</button
+              ><a class="btn subtle" href="#gallery">Explore the gallery</a>
+            </div>
+            <div class="hero-stats">
+              <div>
+                <b>One clear journey</b><span>from inquiry to event day</span>
+              </div>
+              <div><b>Web + Flutter</b><span>shared booking rules</span></div>
+              <div><b>Staff-approved</b><span>before confirmation</span></div>
+            </div>
+          </div>
+          <div class="hero-art">
+            <img
+              src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1500&q=85"
+              alt="Photograph of an elegantly arranged wedding reception venue"
+              fetchpriority="high"
+            />
+            <div class="hero-caption">
+              <small>Venue inspiration · Stock photography</small
+              ><strong>A room made for gathering</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section alt" id="spaces">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">One connected experience</div>
+              <h2 class="serif">Designed around the full event journey.</h2>
+            </div>
+            <p>
+              Explore the venue, send a request, follow your quote, and let
+              staff manage the details behind your event.
+            </p>
+          </div>
+          <div class="overview">
+            <article class="card">
+              <div class="icon">01</div>
+              <h3>Discover the venue</h3>
+              <p>
+                Rooms, capacities, layouts, amenities, packages, policies,
+                gallery, and location.
+              </p>
+            </article>
+            <article class="card">
+              <div class="icon">02</div>
+              <h3>Request with clarity</h3>
+              <p>
+                Check a preferred date, share event needs, and receive a request
+                reference.
+              </p>
+            </article>
+            <article class="card">
+              <div class="icon">03</div>
+              <h3>Work through a quote</h3>
+              <p>
+                Review a versioned itemized offer and accept the exact terms.
+              </p>
+            </article>
+            <article class="card">
+              <div class="icon">04</div>
+              <h3>Run the event well</h3>
+              <p>
+                Manage changes, balances, checklist items, reminders, and
+                documents.
+              </p>
+            </article>
+            <article class="card">
+              <div class="icon">05</div>
+              <h3>Use web or Flutter</h3>
+              <p>
+                A responsive website and focused Android/iOS app share the same
+                backend.
+              </p>
+            </article>
+            <article class="card">
+              <div class="icon">06</div>
+              <h3>Keep bookings safe</h3>
+              <p>
+                Server-side availability, holds, payment verification,
+                permissions, and audit history.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="gallery">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">A first look at the atmosphere</div>
+              <h2 class="serif">The EventHall gallery.</h2>
+            </div>
+            <p>
+              Real photographs of event venues, replacing the illustrated
+              placeholders. These are inspiration images—not confirmed photos of
+              EventHall itself.
+            </p>
+          </div>
+          <div class="gallery-tools">
+            <button class="filter active" data-filter="all">All moments</button
+            ><button class="filter" data-filter="spaces">Spaces</button
+            ><button class="filter" data-filter="weddings">Weddings</button
+            ><button class="filter" data-filter="celebrations">
+              Celebrations</button
+            ><button class="filter" data-filter="details">Details</button>
+          </div>
+          <div class="gallery-upload">
+            <div class="upload-copy">
+              <strong>Add EventHall’s own venue photos</strong
+              ><span
+                >Select image files and a category; they’ll appear in this
+                preview for you to review.</span
+              >
+            </div>
+            <div class="upload-actions">
+              <select
+                id="uploadCategory"
+                aria-label="Category for uploaded photos"
+              >
+                <option value="spaces">Spaces</option>
+                <option value="weddings">Weddings</option>
+                <option value="celebrations">Celebrations</option>
+                <option value="details">Details</option></select
+              ><label class="upload-btn" for="photoUpload"
+                >＋ Choose photos</label
+              ><input
+                id="photoUpload"
+                type="file"
+                accept="image/*"
+                multiple
+                hidden
+              /><button
+                class="clear-photos"
+                id="clearPhotos"
+                type="button"
+                hidden
+              >
+                Restore inspiration photos
+              </button>
+            </div>
+            <p class="upload-status" id="uploadStatus" aria-live="polite">
+              Stock photos are illustrative. For launch, replace them with
+              approved EventHall venue images and captions.
+            </p>
+          </div>
+          <div class="gallery-grid" id="galleryGrid">
+            <button
+              class="gallery-tile stock-tile"
+              data-category="spaces"
+              data-title="The Grand Hall"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=82"
+                alt="Warmly lit banquet hall set for a wedding reception"
+                loading="lazy"
+              /><span class="photo-badge">Venue inspiration</span
+              ><span class="tile-copy"
+                ><small>Room inspiration · Venue</small
+                ><strong>The Grand Hall</strong></span
+              >
+            </button>
+            <button
+              class="gallery-tile stock-tile"
+              data-category="weddings"
+              data-title="A day to remember"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=82"
+                alt="Elegant wedding ceremony setup in a garden venue"
+                loading="lazy"
+              /><span class="photo-badge">Venue inspiration</span
+              ><span class="tile-copy"
+                ><small>Wedding inspiration</small
+                ><strong>A day to remember</strong></span
+              >
+            </button>
+            <button
+              class="gallery-tile stock-tile"
+              data-category="details"
+              data-title="Thoughtful details"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=82"
+                alt="Refined event table setting with floral details"
+                loading="lazy"
+              /><span class="photo-badge">Venue inspiration</span
+              ><span class="tile-copy"
+                ><small>Table styling · Details</small
+                ><strong>Thoughtful details</strong></span
+              >
+            </button>
+            <button
+              class="gallery-tile stock-tile"
+              data-category="celebrations"
+              data-title="Gather together"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=82"
+                alt="Celebration reception room prepared for guests"
+                loading="lazy"
+              /><span class="photo-badge">Venue inspiration</span
+              ><span class="tile-copy"
+                ><small>Celebration inspiration</small
+                ><strong>Gather together</strong></span
+              >
+            </button>
+            <button
+              class="gallery-tile stock-tile"
+              data-category="spaces"
+              data-title="Light-filled rooms"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=82"
+                alt="Bright event venue arranged for a formal gathering"
+                loading="lazy"
+              /><span class="photo-badge">Venue inspiration</span
+              ><span class="tile-copy"
+                ><small>Room inspiration · Venue</small
+                ><strong>Light-filled rooms</strong></span
+              >
+            </button>
+          </div>
+          <p class="gallery-note">
+            Choose a photo to view it full-screen. For an accurate public
+            gallery, use photographs of EventHall’s actual rooms, with approved
+            captions and image credits where required.
+          </p>
+        </div>
+      </section>
+      <section class="section alt" id="journeys">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Complete workflow library</div>
+              <h2 class="serif">All the important steps, in one place.</h2>
+            </div>
+            <p>
+              Normal path and exception paths, with clear ownership and next
+              actions.
+            </p>
+          </div>
+          <div class="workflow">
+            <nav class="wf-sidebar">
+              <button class="wf-tab active" data-wf="a">
+                01 · Discover & inquire</button
+              ><button class="wf-tab" data-wf="b">02 · Quote & hold</button
+              ><button class="wf-tab" data-wf="c">03 · Deposit & confirm</button
+              ><button class="wf-tab" data-wf="d">04 · Customer portal</button
+              ><button class="wf-tab" data-wf="e">05 · Changes & refunds</button
+              ><button class="wf-tab" data-wf="f">06 · Staff operations</button>
+            </nav>
+            <div>
+              <article class="wf-panel active" id="wf-a">
+                <div class="wf-titlebar">
+                  <div>
+                    <div class="eyebrow">Workflow A</div>
+                    <h3 class="serif">Discovery to a qualified inquiry</h3>
+                    <p>A request is never presented as a reservation.</p>
+                  </div>
+                  <span class="pill"><i class="dot"></i>Not booked yet</span>
+                </div>
+                <div class="steps">
+                  <div class="step">
+                    <div class="step-no">1</div>
+                    <div class="step-body">
+                      <h4>Explore the venue</h4>
+                      <p>
+                        View spaces, photos, capacities, layouts, amenities,
+                        packages, policies, FAQs, location, and contact
+                        information.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">2</div>
+                    <div class="step-body">
+                      <h4>Choose preferences</h4>
+                      <p>
+                        Enter event type, preferred date, start/end time, guest
+                        count, layout, room preference, add-ons, and event
+                        message.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">3</div>
+                    <div class="step-body">
+                      <h4>Check fit on the server</h4>
+                      <p>
+                        Validate capacity, operating hours, setup/cleanup
+                        buffers, blackouts, holds, and resource conflicts. If
+                        unavailable, offer alternatives without exposing other
+                        customer details.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">4</div>
+                    <div class="step-body">
+                      <h4>Submit and acknowledge</h4>
+                      <p>
+                        Capture contact details and required consent, return a
+                        reference, send a transactional receipt, assign an
+                        owner, and offer a tour or quote.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="callout">
+                  <strong>Recovery:</strong> preserve safe form values after
+                  errors and make the next action clear.
+                </div>
+              </article>
+              <article class="wf-panel" id="wf-b">
+                <div class="wf-titlebar">
+                  <div>
+                    <div class="eyebrow">Workflow B</div>
+                    <h3 class="serif">Versioned quote to acceptance</h3>
+                    <p>
+                      A quote does not reserve a date unless staff explicitly
+                      creates a timed hold.
+                    </p>
+                  </div>
+                </div>
+                <div class="steps">
+                  <div class="step">
+                    <div class="step-no">1</div>
+                    <div class="step-body">
+                      <h4>Staff validates suitability</h4>
+                      <p>
+                        Review room resources, buffers, capacity, package
+                        availability, and customer needs.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">2</div>
+                    <div class="step-body">
+                      <h4>Create quote and optional hold</h4>
+                      <p>
+                        Store itemized version, expiry, deposit requirement,
+                        terms, and hold deadline.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">3</div>
+                    <div class="step-body">
+                      <h4>Customer accepts exact version</h4>
+                      <p>
+                        Require sign-in or a short-lived single-use link; record
+                        terms evidence.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">4</div>
+                    <div class="step-body">
+                      <h4>Handle expiry or superseding</h4>
+                      <p>
+                        Reject stale acceptance safely and route to staff for a
+                        fresh quote.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="wf-panel" id="wf-c">
+                <div class="wf-titlebar">
+                  <div>
+                    <div class="eyebrow">Workflow C</div>
+                    <h3 class="serif">Deposit to confirmed reservation</h3>
+                    <p>
+                      The backend is authoritative—not the browser return page.
+                    </p>
+                  </div>
+                </div>
+                <div class="steps">
+                  <div class="step">
+                    <div class="step-no">1</div>
+                    <div class="step-body">
+                      <h4>Branch on deposit requirement</h4>
+                      <p>
+                        If required, create hosted checkout inside a valid hold.
+                        If not required, continue with staff approval and terms
+                        validation.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">2</div>
+                    <div class="step-body">
+                      <h4>Verify the payment event</h4>
+                      <p>
+                        Validate the signed webhook, amount, currency,
+                        reference, replay protection, and duplicate event ID.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">3</div>
+                    <div class="step-body">
+                      <h4>Confirm atomically</h4>
+                      <p>
+                        Revalidate availability, approval, accepted terms, and
+                        deposit condition in one transaction.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">4</div>
+                    <div class="step-body">
+                      <h4>Deliver or recover</h4>
+                      <p>
+                        On success, send reference, schedule, receipt, balance
+                        date, next steps, and calendar file. On conflict or
+                        expired hold, do not double-book; route payment
+                        exceptions to staff.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="wf-panel" id="wf-d">
+                <div class="wf-titlebar">
+                  <div>
+                    <div class="eyebrow">Customer web + Flutter</div>
+                    <h3 class="serif">My Event self-service</h3>
+                    <p>Securely follow the booking from quote to event day.</p>
+                  </div>
+                </div>
+                <div class="steps">
+                  <div class="step">
+                    <div class="step-no">1</div>
+                    <div class="step-body">
+                      <h4>Sign in securely</h4>
+                      <p>
+                        Use managed identity or a short-lived action link scoped
+                        to the correct customer.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">2</div>
+                    <div class="step-body">
+                      <h4>View timeline and status</h4>
+                      <p>
+                        See inquiry, quote, reservation, payment, checklist,
+                        tasks, messages, and next action.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">3</div>
+                    <div class="step-body">
+                      <h4>Manage approved actions</h4>
+                      <p>
+                        Review terms, receipts, documents, payment links, change
+                        requests, and reminders.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="wf-panel" id="wf-e">
+                <div class="wf-titlebar">
+                  <div>
+                    <div class="eyebrow">Follow-up workflows</div>
+                    <h3 class="serif">Changes, cancellation, and completion</h3>
+                    <p>
+                      Protect the original booking until a revised arrangement
+                      is approved.
+                    </p>
+                  </div>
+                </div>
+                <div class="steps">
+                  <div class="step">
+                    <div class="step-no">1</div>
+                    <div class="step-body">
+                      <h4>Change request</h4>
+                      <p>
+                        Customer proposes a date, guest, room, package, or
+                        add-on change; staff checks price and availability
+                        without altering the current booking.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">2</div>
+                    <div class="step-body">
+                      <h4>Cancellation and refund</h4>
+                      <p>
+                        Show the saved policy, collect explicit confirmation,
+                        authorize the refund, and keep reservation status
+                        separate from refund status.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">3</div>
+                    <div class="step-body">
+                      <h4>Before and after the event</h4>
+                      <p>
+                        Send balance, guest-count, catering, setup, and document
+                        reminders; then complete the event record, final
+                        receipt, adjustments, and optional review request.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="wf-panel" id="wf-f">
+                <div class="wf-titlebar">
+                  <div>
+                    <div class="eyebrow">Staff operations</div>
+                    <h3 class="serif">A clear command centre</h3>
+                    <p>
+                      Online, phone, and front-desk bookings follow the same
+                      rules.
+                    </p>
+                  </div>
+                </div>
+                <div class="steps">
+                  <div class="step">
+                    <div class="step-no">1</div>
+                    <div class="step-body">
+                      <h4>Start with priorities</h4>
+                      <p>
+                        New inquiries, expiring holds, today's tours, upcoming
+                        events, overdue balances, and payment exceptions.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">2</div>
+                    <div class="step-body">
+                      <h4>Manage leads and calendar</h4>
+                      <p>
+                        Assign owners, record notes, issue quotes, review
+                        room/day/week availability, and manage blackouts.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-no">3</div>
+                    <div class="step-body">
+                      <h4>Operate with permissions</h4>
+                      <p>
+                        Coordinator, manager, and administrator actions are
+                        role-controlled, audited, and protected with staff MFA.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="faq">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Clarity before commitment</div>
+              <h2 class="serif">A few important details.</h2>
+            </div>
+            <p>The experience is clear to customers and safe for staff.</p>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>Does an inquiry reserve the date?</summary>
+              <p>
+                No. It creates a request reference. A quote also does not block
+                a date unless staff explicitly creates a timed hold.
+              </p>
+            </details>
+            <details>
+              <summary>When is the reservation confirmed?</summary>
+              <p>
+                After staff approval, exact quote and terms acceptance, required
+                deposit condition, and atomic server-side validation.
+              </p>
+            </details>
+            <details>
+              <summary>What if payment arrives after a hold expires?</summary>
+              <p>
+                The system does not double-book. It routes the payment to staff
+                for the agreed refund or alternative-date process.
+              </p>
+            </details>
+            <details>
+              <summary>Can customers use the website without the app?</summary>
+              <p>
+                Yes. Public discovery, inquiry, and the customer web portal
+                remain available in the browser.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-row">
+        <div>
+          <a class="brand" href="#home"
+            ><span class="brandmark">✦</span>EventHall</a
+          >
+          <div class="source-note">
+            Beautiful occasions. Effortless bookings.
+          </div>
+        </div>
+        <div class="source-note">
+          Responsive venue booking experience · Real venue inspiration photos
+        </div>
+      </div>
+    </footer>
+    <div
+      class="modal"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="modalbox">
+        <div class="modal-head">
+          <div>
+            <div class="eyebrow">Start with a conversation</div>
+            <h2 class="serif">Check your date.</h2>
+            <p class="muted">A request is not a confirmed reservation.</p>
+          </div>
+          <button class="xbtn" id="close" aria-label="Close">×</button>
+        </div>
+        <form id="form">
+          <div class="formgrid">
+            <div class="field">
+              <label
+                >Event type<select required>
+                  <option value="">Choose one</option>
+                  <option>Wedding</option>
+                  <option>Celebration</option>
+                  <option>Corporate gathering</option>
+                </select></label
+              >
+            </div>
+            <div class="field">
+              <label
+                >Guest count<input
+                  type="number"
+                  min="1"
+                  required
+                  placeholder="e.g. 120"
+              /></label>
+            </div>
+            <div class="field">
+              <label
+                >Preferred date<input id="date" type="date" required
+              /></label>
+            </div>
+            <div class="field">
+              <label
+                >Space preference<select>
+                  <option>No preference</option>
+                  <option>The Grand Hall</option>
+                  <option>The Gallery Room</option>
+                  <option>The Courtyard</option>
+                </select></label
+              >
+            </div>
+            <div class="field">
+              <label>Start time<input id="start" type="time" required /></label>
+            </div>
+            <div class="field">
+              <label>End time<input id="end" type="time" required /></label>
+            </div>
+            <div class="field">
+              <label>Your name<input required autocomplete="name" /></label>
+            </div>
+            <div class="field">
+              <label
+                >Email address<input type="email" required autocomplete="email"
+              /></label>
+            </div>
+            <div class="field full">
+              <label
+                >Event details<textarea
+                  rows="3"
+                  placeholder="Your vision, timing, or questions..."
+                ></textarea>
+              </label>
+            </div>
+            <div class="field full">
+              <label class="checkline"
+                ><input type="checkbox" required /><span
+                  >I agree to be contacted about this inquiry. Marketing consent
+                  stays separate and optional.</span
+                ></label
+              >
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Availability note:</strong> this visual preview validates
+            request details only. Connect the live booking API for real
+            availability and submission.
+          </div>
+          <button class="btn gold" style="width: 100%; margin-top: 16px">
+            Review date request →
+          </button>
+          <div class="callout status" id="status" role="status"></div>
+        </form>
+      </div>
+    </div>
+    <div
+      class="lightbox"
+      id="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Gallery viewer"
+    >
+      <div class="lightbox-inner">
+        <div id="lightboxArt"></div>
+        <div class="lightbox-info">
+          <div class="eyebrow" style="color: #e7d2a5">
+            Venue inspiration · Stock photography
+          </div>
+          <strong id="lightboxTitle"></strong>
+        </div>
+        <button
+          class="lightbox-close"
+          id="lightboxClose"
+          aria-label="Close gallery viewer"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+    <script>
+      const $ = (s) => document.querySelector(s),
+        $$ = (s) => document.querySelectorAll(s);
+      const root = document.documentElement;
+      try {
+        const t = localStorage.getItem("eh-theme");
+        if (t) root.dataset.theme = t;
+      } catch (e) {}
+      function icon() {
+        $("#theme").textContent = root.dataset.theme === "dark" ? "☀" : "☾";
+      }
+      icon();
+      $("#theme").onclick = () => {
+        root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+        try {
+          localStorage.setItem("eh-theme", root.dataset.theme);
+        } catch (e) {}
+        icon();
+      };
+      const modal = $("#modal");
+      $$("[data-open]").forEach(
+        (b) =>
+          (b.onclick = () => {
+            modal.classList.add("open");
+            modal.setAttribute("aria-hidden", "false");
+            $("#date").focus();
+          }),
+      );
+      function closeModal() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+      $("#close").onclick = closeModal;
+      modal.onclick = (e) => {
+        if (e.target === modal) closeModal();
+      };
+      const now = new Date(),
+        today = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+          .toISOString()
+          .slice(0, 10);
+      $("#date").min = today;
+      $("#form").onsubmit = (e) => {
+        e.preventDefault();
+        if (!e.currentTarget.reportValidity()) return;
+        const status = $("#status");
+        if ($("#end").value <= $("#start").value) {
+          $("#end").setCustomValidity(
+            "End time must be later than the start time.",
+          );
+          $("#end").reportValidity();
+          $("#end").setCustomValidity("");
+          return;
+        }
+        status.textContent =
+          "Your request details look ready. Live availability and submission will connect to the EventHall backend.";
+        status.classList.add("show");
+      };
+      $$(".wf-tab").forEach(
+        (b) =>
+          (b.onclick = () => {
+            $$(".wf-tab").forEach((x) => x.classList.remove("active"));
+            $$(".wf-panel").forEach((x) => x.classList.remove("active"));
+            b.classList.add("active");
+            $("#wf-" + b.dataset.wf).classList.add("active");
+          }),
+      );
+      $$(".filter").forEach(
+        (b) =>
+          (b.onclick = () => {
+            $$(".filter").forEach((x) => x.classList.remove("active"));
+            b.classList.add("active");
+            const f = b.dataset.filter;
+            $$(".gallery-tile").forEach(
+              (x) => (x.hidden = f !== "all" && x.dataset.category !== f),
+            );
+          }),
+      );
+      const gallery = $("#galleryGrid"),
+        photoInput = $("#photoUpload"),
+        clearPhotos = $("#clearPhotos"),
+        status = $("#uploadStatus");
+      let uploadedUrls = [];
+      function cleanName(name) {
+        return (
+          name
+            .replace(/\.[^.]+$/, "")
+            .replace(/[_-]+/g, " ")
+            .replace(/\s+/g, " ")
+            .trim() || "EventHall photo"
+        );
+      }
+      function restoreGallery() {
+        uploadedUrls.forEach(URL.revokeObjectURL);
+        uploadedUrls = [];
+        gallery.querySelectorAll(".uploaded-tile").forEach((x) => x.remove());
+        gallery
+          .querySelectorAll(".stock-tile")
+          .forEach((x) => (x.hidden = false));
+        clearPhotos.hidden = true;
+        status.textContent =
+          "Stock photos are illustrative. For launch, replace them with approved EventHall venue images and captions.";
+      }
+      clearPhotos.onclick = restoreGallery;
+      photoInput.onchange = () => {
+        const files = [...photoInput.files].filter((f) =>
+          f.type.startsWith("image/"),
+        );
+        if (!files.length) return;
+        gallery.querySelectorAll(".uploaded-tile").forEach((x) => x.remove());
+        uploadedUrls.forEach(URL.revokeObjectURL);
+        uploadedUrls = [];
+        gallery
+          .querySelectorAll(".stock-tile")
+          .forEach((x) => (x.hidden = true));
+        clearPhotos.hidden = false;
+        const category = $("#uploadCategory").value,
+          label = $("#uploadCategory").selectedOptions[0].textContent;
+        files.slice(0, 12).forEach((file) => {
+          const url = URL.createObjectURL(file);
+          uploadedUrls.push(url);
+          const tile = document.createElement("button");
+          tile.type = "button";
+          tile.className = "gallery-tile uploaded-tile";
+          tile.dataset.category = category;
+          tile.dataset.title = cleanName(file.name);
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = cleanName(file.name);
+          const badge = document.createElement("span");
+          badge.className = "photo-badge";
+          badge.textContent = "Your photo";
+          const copy = document.createElement("span");
+          copy.className = "tile-copy";
+          const small = document.createElement("small");
+          small.textContent = label + " · EventHall";
+          const strong = document.createElement("strong");
+          strong.textContent = cleanName(file.name);
+          copy.append(small, strong);
+          tile.append(img, badge, copy);
+          tile.onclick = () => openPhoto(url, tile.dataset.title);
+          gallery.append(tile);
+        });
+        status.textContent =
+          files.length > 12
+            ? "Showing the first 12 photos. Choose up to 12 at a time."
+            : files.length +
+              " real photo" +
+              (files.length === 1 ? "" : "s") +
+              " previewed locally; these are not uploaded to a live server.";
+        photoInput.value = "";
+      };
+      function openPhoto(url, title) {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = title;
+        $("#lightboxArt").replaceChildren(img);
+        $("#lightboxTitle").textContent = title;
+        $("#lightbox").classList.add("open");
+        $("#lightboxClose").focus();
+      }
+      $$(".stock-tile").forEach(
+        (tile) =>
+          (tile.onclick = () => {
+            const img = tile.querySelector("img").cloneNode();
+            img.removeAttribute("loading");
+            $("#lightboxArt").replaceChildren(img);
+            $("#lightboxTitle").textContent = tile.dataset.title;
+            $("#lightbox").classList.add("open");
+            $("#lightboxClose").focus();
+          }),
+      );
+      const lb = $("#lightbox");
+      function closeLb() {
+        lb.classList.remove("open");
+      }
+      $("#lightboxClose").onclick = closeLb;
+      lb.onclick = (e) => {
+        if (e.target === lb) closeLb();
+      };
+      document.onkeydown = (e) => {
+        if (e.key === "Escape") {
+          closeModal();
+          closeLb();
+        }
+      };
+    </script>
+  </body>
+</html>
