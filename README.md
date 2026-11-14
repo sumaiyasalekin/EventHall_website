@@ -8,7 +8,7 @@ A responsive **HTML/CSS/JavaScript** web storefront for browsing event spaces, e
 
 ## Preview
 
-![EventHall Website Preview](Screenshot%202026-11-14%20135945.png)
+![EventHall Preview](<Screenshot 2026-11-14 141419.png>)
 
 ---
 
