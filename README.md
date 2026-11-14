@@ -31,9 +31,7 @@ eventhall-web/
 ├── script.js                            # Interactive filtering and form validation (if separated)
 ├── Screenshot 2026-11-14 141419.png     # Website preview screenshot
 └── README.md                            # Project documentation
-
+```
 ---
-
 ## Author
-
-**Sumaiya Salekin Saba**  
+**Sumaiya Salekin Saba**
